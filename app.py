@@ -12,7 +12,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
-
+from PIL import Image
 import streamlit as st
 from llm_chains import load_normal_chain, load_pdf_chat_chain
 from streamlit_mic_recorder import mic_recorder
@@ -50,6 +50,8 @@ def clear_cache():
     st.cache_resource.clear()
 
 def main():
+    favicon = Image.open('chat_icons/favicon.ico')
+    st.set_page_config(page_title='Home | Pi.AI', page_icon = favicon, layout = 'wide', initial_sidebar_state = 'auto')
     st.title("Pi.AI - Chatbot")
     st.write(css, unsafe_allow_html=True)
     
@@ -83,7 +85,7 @@ def main():
     
     # uploaded_audio = st.sidebar.file_uploader("Upload an audio file", type=["wav", "mp3", "ogg"], key=st.session_state.audio_uploader_key)
     # uploaded_image = st.sidebar.file_uploader("Upload an image file", type=["jpg", "jpeg", "png"])
-    uploaded_pdf = st.sidebar.file_uploader("Upload a pdf file", accept_multiple_files=True, 
+    uploaded_pdf = st.sidebar.file_uploader("Upload book PDF", accept_multiple_files=True, 
                                             key=st.session_state.pdf_uploader_key, type=["pdf"], on_change=toggle_pdf_chat)
 
     if uploaded_pdf:
